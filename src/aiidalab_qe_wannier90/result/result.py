@@ -4,6 +4,7 @@ from aiidalab_qe.common.bands_pdos import BandsPdosModel, BandsPdosWidget
 from aiidalab_qe.common.panel import ResultsPanel
 import ipywidgets as ipw
 from .model import Wannier90ResultsModel
+from ..utils import create_download_link
 from table_widget import TableWidget
 import plotly.graph_objs as go
 import plotly.express as px
@@ -124,7 +125,18 @@ class Wannier90ResultsPanel(ResultsPanel[Wannier90ResultsModel]):
             self.table
         ], layout=ipw.Layout(margin='10px 0'))
 
+        # Downloads section
+        download_links = []
 
+        for filename in self._model.retrieved.list_object_names():
+            if filename.endswith('_tb.dat'):
+                # Create a download link for the .tb.dat file
+                temp_file = self._model.retrieved.as_path(filename)
+                download_links.append(create_download_link(temp_file, description=f'Download {filename}'))
+            elif filename.endswith('.bxsf'):
+                # Create a download link for the .bxsf file
+                temp_file = self._model.retrieved.as_path(filename)
+                download_links.append(create_download_link(temp_file, description=f'Download Fermi surface {filename}'))
 
 
         # Arrange components in the panel
@@ -138,6 +150,10 @@ class Wannier90ResultsPanel(ResultsPanel[Wannier90ResultsModel]):
                 wannier90_outputs_parameters,
                 ipw.HBox([self.plot_omega_is, self.plot_omega_tots]),
                 ipw.HBox([structure_viewer_section, table_section]),
+            ]),
+            ipw.VBox([
+                ipw.HTML('<h2>Download files</h2>'),
+                ipw.VBox(download_links),
             ]),
         ]
 

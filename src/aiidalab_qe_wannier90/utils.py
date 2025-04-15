@@ -1,3 +1,5 @@
+from pathlib import Path
+
 def process_xsf_files(folder: str = 'parent_folder'):
     import os
     import numpy as np
@@ -63,3 +65,17 @@ def process_xsf_files(folder: str = 'parent_folder'):
     return {'atoms': atoms,
             'parameters': parameters,
             'mesh_data': mesh_data}
+
+def create_download_link(file_path: Path, description: str = 'Download'):
+    """Creates an HTML download link widget for a file."""
+    import ipywidgets as ipw
+    import base64
+
+    if not file_path.is_file():
+        return ipw.HTML(f'<b>Error:</b> File {file_path.name} not found.')
+
+    with open(file_path, 'rb') as f:
+        b64 = base64.b64encode(f.read()).decode()
+    payload = f'data:application/octet-stream;base64,{b64}'
+    html = f'<a download="{file_path.name}" href="{payload}" target="_blank">{description}</a>'
+    return ipw.HTML(html)
