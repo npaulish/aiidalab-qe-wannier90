@@ -131,12 +131,14 @@ class Wannier90ResultsPanel(ResultsPanel[Wannier90ResultsModel]):
         for filename in self._model.retrieved.list_object_names():
             if filename.endswith('_tb.dat'):
                 # Create a download link for the .tb.dat file
-                temp_file = self._model.retrieved.as_path(filename)
-                download_links.append(create_download_link(temp_file, description=f'Download {filename}'))
+                temp_dir = self._model.retrieved
+                download_links.append(create_download_link(
+                    temp_dir, filename, description=f'Download {filename}'))
             elif filename.endswith('.bxsf'):
                 # Create a download link for the .bxsf file
-                temp_file = self._model.retrieved.as_path(filename)
-                download_links.append(create_download_link(temp_file, description=f'Download Fermi surface {filename}'))
+                temp_dir = self._model.retrieved
+                download_links.append(create_download_link(
+                    temp_dir, filename, description=f'Download {filename}'))
 
 
         # Arrange components in the panel
