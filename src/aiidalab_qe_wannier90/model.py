@@ -25,6 +25,7 @@ class ConfigurationSettingsModel(ConfigurationSettingsModel, HasInputStructure):
     energy_window_input = tl.Float(allow_none=True, default_value=2.0)
     compute_fermi_surface = tl.Bool(allow_none=True, default_value=False)
     fermi_surface_kpoint_distance = tl.Float(allow_none=True, default_value=0.04)
+    compute_dhva_frequencies = tl.Bool(allow_none=True, default_value=False)
 
     protocol = tl.Unicode(allow_none=True)
     electronic_type = tl.Unicode(allow_none=True)
@@ -42,6 +43,7 @@ class ConfigurationSettingsModel(ConfigurationSettingsModel, HasInputStructure):
             'energy_window_input': self.energy_window_input,
             'compute_fermi_surface': self.compute_fermi_surface,
             'fermi_surface_kpoint_distance': self.fermi_surface_kpoint_distance,
+            'compute_dhva_frequencies': self.compute_dhva_frequencies,
         }
 
     def set_model_state(self, parameters: dict):

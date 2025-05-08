@@ -125,6 +125,10 @@ class Wannier90ResultsPanel(ResultsPanel[Wannier90ResultsModel]):
             self.table
         ], layout=ipw.Layout(margin='10px 0'))
 
+        # de Haas van Alphen (dHvA) frequencies
+        skeaf_data = self._model.get_skeaf() # skeaf_data is a dictionary {band: frequency_array}
+        # TODO: plot dHvA frequencies
+
         # Downloads section
         download_links = []
 

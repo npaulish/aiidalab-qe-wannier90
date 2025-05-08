@@ -23,6 +23,7 @@ def get_builder(codes, structure, parameters, **kwargs):
     frozen_type=wannier90_parameters.pop('frozen_type')
     compute_fermi_surface=wannier90_parameters.pop('compute_fermi_surface')
     fermi_surface_kpoint_distance=wannier90_parameters.pop('fermi_surface_kpoint_distance')
+    compute_dhva_frequencies=wannier90_parameters.pop('compute_dhva_frequencies')
 
     all_codes = {
                 'pw': codes.get('pw')['code'],
@@ -70,6 +71,7 @@ def get_builder(codes, structure, parameters, **kwargs):
         retrieve_matrices=retrieve_matrices,
         compute_fermi_surface=compute_fermi_surface,
         fermi_surface_kpoint_distance=fermi_surface_kpoint_distance,
+        compute_dhva_frequencies=compute_dhva_frequencies,
         **kwargs,
     )
     return builder

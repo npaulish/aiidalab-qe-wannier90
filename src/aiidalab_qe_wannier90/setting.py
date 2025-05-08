@@ -101,6 +101,15 @@ class ConfigurationSettingPanel(
             (self._model, 'fermi_surface_kpoint_distance'),
             (self.fermi_surface_kpoint_distance, 'value'),
         )
+        self.compute_dhva_frequencies = ipw.Checkbox(
+            value=self._model.compute_dhva_frequencies,
+            description='Compute de Haas-van Alphen frequencies',
+            style={'description_width': 'initial'},
+        )
+        ipw.link(
+            (self._model, 'compute_dhva_frequencies'),
+            (self.compute_dhva_frequencies, 'value'),
+        )
         self.number_of_disproj_max = ipw.IntText(
             value=self._model.number_of_disproj_max,
             description='Number of dis_proj_max',
@@ -237,6 +246,7 @@ class ConfigurationSettingPanel(
             self.retrieve_hamiltonian,
             self.compute_fermi_surface,
             self.fermi_surface_kpoint_distance,
+            self.compute_dhva_frequencies,
             self.algorithm_description,
             self.projection_selection_widget,
             self.frozen_states_widget,
